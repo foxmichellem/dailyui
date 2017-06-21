@@ -22,3 +22,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.content {
+  margin-left: 25%;
+}
+
+.sidebar {
+  width: 25%;
+  position: fixed;
+  z-index: 1;
+  overflow: auto;
+  height: 100%;
+}
