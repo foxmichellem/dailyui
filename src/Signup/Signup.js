@@ -1,36 +1,74 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Signup.css';
 import './../Grid.css';
 var createReactClass = require('create-react-class');
 
 
-var Input = createReactClass({
-  render: function(){
-    return (
-      <div className="input">
-        <input className="input__box" id={this.props.name} type={this.props.type} placeholder={this.props.placeholder} />
-      </div>
-    );
+class Modal extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      formErrors: {email: '', password: ''},
+      emailValid: false,
+      passwordValid: false,
+      formValid: false
+    }
   }
-});
 
-var Modal = createReactClass({
-  handleSubmit: function(e){
-    console.log('handled');
-  },
+  handleChange(e) {
+    console.log('test')
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({[name]: value},
+                  () => { this.validateField(name, value) });
+  }
 
+  validateField(fieldName, fieldValue) {
+    var fieldValidationErrors = this.state.formErrors;
+    var emailValid = this.state.emailValid;
+    var passwordValid = this.state.passwordValid;
 
-  render: function(){
+    if (fieldName === "email"){
+      emailValid = fieldValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+    }
+    else if (fieldName === "password"){
+      passwordValid = fieldValue.length >= 6;
+      fieldValidationErrors.password = passwordValid ? '': ' is too short';
+    }
+    this.setState({formErrors: fieldValidationErrors,
+                    emailValid: emailValid,
+                    passwordValid: passwordValid
+                  }, this.validateForm);
+
+  }
+
+  validateForm() {
+    this.setState({formValid: this.state.emailValid && this.state.passwordValid});
+  }
+
+  errorClass(error) {
+    return(error.length === 0 ? '' : 'has-error');
+  }
+
+  render() {
     return (
       <div className="modal">
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-12">
               <form onSubmit={this.props.onFormSubmit} className="modal__form">
-                <Input id="name" type="text" placeholder="Full name" onChange={this.handleChange} />
-                <Input id="email" type="email" placeholder = "Email" onChange={this.handleChange} />
-                <Input id="password" type="password" placeholder = "Password" onChange={this.handleChange} />
-                <Input id="password-confirm" type="password" placeholder = "Password" onChange={this.handleChange} />
+                <div className="input">
+                  <input className="input__box" type="name" placeholder="Full name" onChange={this.handleChange} />
+                </div>
+                <div className="input">
+                  <input className="input__box" type="email" placeholder="Email" onChange={this.handleChange} />
+                </div>
+                <div className="input">
+                  <input className="input__box" type="password" placeholder="Password" onChange={this.handleChange} />
+                </div>
                 <button onClick={this.handleSubmit} className="modal__button">Sign up</button>
               </form>
             </div>
@@ -39,7 +77,7 @@ var Modal = createReactClass({
       </div>
     );
   }
-})
+}
 
 var Signup = createReactClass({
   render: function(){
