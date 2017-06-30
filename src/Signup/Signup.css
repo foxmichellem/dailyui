@@ -1,0 +1,44 @@
+.content {
+  background-color: #fcfcf9; }
+
+.input {
+  margin: 1em 0; }
+  .input__box {
+    background-color: #ffbabd;
+    outline: none;
+    border-width: 0 0 3px 0;
+    border-color: #fcfcf9;
+    border-style: solid;
+    margin: 1em auto;
+    display: block;
+    width: 60%;
+    font-size: 1.1em; }
+    .input__box::-webkit-input-placeholder {
+      font-style: italic;
+      color: #fcfcf9; }
+    .input__box:-moz-placeholder {
+      font-style: italic;
+      color: #fcfcf9; }
+    .input__box::-moz-placeholder {
+      font-style: italic;
+      color: #fcfcf9; }
+    .input__box:-ms-input-placeholder {
+      font-style: italic;
+      color: #fcfcf9; }
+
+.modal {
+  text-align: center; }
+  .modal__form {
+    width: 60%;
+    margin: auto;
+    background-color: #ffbabd;
+    padding: 3em 0; }
+  .modal__button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: .5rem 4rem;
+    border: 3px solid #fcfcf9;
+    outline: none;
+    color: #fcfcf9;
+    background-color: #ffbabd;
+    font-size: 1.1em; }
