@@ -8,6 +8,7 @@ class Modal extends Component {
   constructor (props) {
     super(props);
     this.state = {
+      name: '',
       email: '',
       password: '',
       formErrors: {email: '', password: ''},
@@ -17,8 +18,7 @@ class Modal extends Component {
     }
   }
 
-  handleChange(e) {
-    console.log('test')
+  handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({[name]: value},
@@ -61,13 +61,13 @@ class Modal extends Component {
             <div className="col-xs-12">
               <form onSubmit={this.props.onFormSubmit} className="modal__form">
                 <div className="input">
-                  <input className="input__box" type="name" placeholder="Full name" onChange={this.handleChange} />
+                  <input className="input__box" placeholder="Full name" name="name" novalidate onChange={this.handleChange} value={this.state.name} />
                 </div>
                 <div className="input">
-                  <input className="input__box" type="email" placeholder="Email" onChange={this.handleChange} />
+                  <input className="input__box" placeholder="Email" name="email" novalidate onChange={this.handleChange} value={this.state.email} />
                 </div>
                 <div className="input">
-                  <input className="input__box" type="password" placeholder="Password" onChange={this.handleChange} />
+                  <input className="input__box" type="password" placeholder="Password" name="password" novalidate onChange={this.handleChange} value={this.state.password} />
                 </div>
                 <button onClick={this.handleSubmit} className="modal__button">Sign up</button>
               </form>
