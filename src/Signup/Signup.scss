@@ -12,7 +12,11 @@ $cream: #fcfcf9;
 .input {
   margin: 1em 0;
 
-  &__box {
+  label {
+
+  }
+
+  input {
     background-color: $pink;
     outline: none;
     border-width: 0 0 3px 0;
@@ -22,30 +26,13 @@ $cream: #fcfcf9;
     display: block;
     width: 60%;
     font-size: 1.1em;
-
-    &::-webkit-input-placeholder {
-       font-style: italic;
-       color: $cream;
-    }
-    &:-moz-placeholder {
-       font-style: italic;
-       color: $cream;
-    }
-    &::-moz-placeholder {
-       font-style: italic;
-       color: $cream;
-    }
-    &:-ms-input-placeholder {
-       font-style: italic;
-       color: $cream;
-    }
   }
 }
 
-.modal {
+.form {
   text-align: center;
 
-  &__form {
+  &__inputs {
     width: 60%;
     margin: auto;
     background-color: $pink;

@@ -3,8 +3,17 @@ import './Signup.css';
 import './../Grid.css';
 var createReactClass = require('create-react-class');
 
+class Confirmation extends Component {
+  render(){
+    return (
+      <div className="confirmation">
+        <h1>You signed up</h1>
+      </div>
+    )
+  }
+}
 
-class Modal extends Component {
+class SignupForm extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -14,8 +23,10 @@ class Modal extends Component {
       formErrors: {email: '', password: ''},
       emailValid: false,
       passwordValid: false,
-      formValid: false
+      formValid: false,
+      showConfirmation: false
     }
+
   }
 
   handleChange = (e) => {
@@ -49,28 +60,39 @@ class Modal extends Component {
     this.setState({formValid: this.state.emailValid && this.state.passwordValid});
   }
 
+//For this to work, I will need to define my own has-error class because I'm not using the bootstrap default
   errorClass(error) {
     return(error.length === 0 ? '' : 'has-error');
   }
 
+ handleSubmit = () => {
+    this.setState({ showConfirmation: true });
+  }
+
+
   render() {
     return (
-      <div className="modal">
+      <div className="form">
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-12">
-              <form onSubmit={this.props.onFormSubmit} className="modal__form">
-                <div className="input">
-                  <input className="input__box" placeholder="Full name" name="name" novalidate onChange={this.handleChange} value={this.state.name} />
-                </div>
-                <div className="input">
-                  <input className="input__box" placeholder="Email" name="email" novalidate onChange={this.handleChange} value={this.state.email} />
-                </div>
-                <div className="input">
-                  <input className="input__box" type="password" placeholder="Password" name="password" novalidate onChange={this.handleChange} value={this.state.password} />
-                </div>
-                <button onClick={this.handleSubmit} className="modal__button">Sign up</button>
-              </form>
+              { this.state.showConfirmation ? <Confirmation /> :
+                <form onSubmit={this.props.onFormSubmit} className="form__inputs">
+                  <div className="input" >
+                    <label>Name</label>
+                    <input name="name" onChange={this.handleChange} value={this.state.name} />
+                  </div>
+                  <div className="input ${this.errorClass(this.state.formErrors.email)}">
+                    <label>Email {this.state.formErrors.email}</label>
+                    <input name="email" onChange={this.handleChange} value={this.state.email} />
+                  </div>
+                  <div className="input ${this.errorClass(this.state.formErrors.password)}">
+                    <label>Password {this.state.formErrors.password}</label>
+                    <input type="password" name="password" onChange={this.handleChange} value={this.state.password} />
+                  </div>
+                  <button type="button" disabled={!this.state.formValid} onClick={this.handleSubmit} className="form__button">Sign up</button>
+                </form>
+              }
             </div>
           </div>
         </div>
@@ -90,7 +112,7 @@ var Signup = createReactClass({
             </div>
           </div>
         </div>
-        <Modal />
+        <SignupForm />
       </div>
     );
   }
